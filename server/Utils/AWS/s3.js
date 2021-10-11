@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
-// import dotenv from "dotenv";
+import dotenv from "dotenv";
 
-// dotenv.config();
+dotenv.config();
 
 
 //AWS s3 bucket config

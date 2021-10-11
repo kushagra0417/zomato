@@ -2,7 +2,7 @@
 
 function App() {
   return (
-    <div></div>
+    <div><h1 className="text-8xl text-blue-900">Kushagra</h1></div>
   );
 }
 
