@@ -9,7 +9,7 @@ import {ImageModel} from  "../../database/allModels"
 
 
 //Utilities
-import { s3Upload } from "../../Utils/s3";
+import { s3Upload } from "../../Utils/AWS/s3";
 
 const Router=express.Router();
 

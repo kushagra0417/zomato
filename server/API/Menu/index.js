@@ -7,7 +7,12 @@ import  express  from "express";
 
 import {MenuModel,ImageModel} from  "../../database/allModels"
 
+
+
 const Router=express.Router();
+// Validation 
+import { ValidateId } from "../../validation/id";
+
 
 /*
 Route   /list
@@ -18,6 +23,7 @@ Method GET
 */
 Router.get("/list/:_id",async(req,res)=>{
     try {
+        await ValidateId(req.params);
         const {_id}=req.params;
         const menus= await MenuModel.findById(_id);
         return res.json({menus})
@@ -36,6 +42,7 @@ Method GET
 
 Router.get("/image/:_id",async(req,res)=>{
     try {
+        await ValidateId(req.params);
         const {_id}=req.params;
         const menus= await ImageModel.findById(_id);
         return res.json({menus})
