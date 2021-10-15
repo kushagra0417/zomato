@@ -64,8 +64,8 @@ const DeliveryCarousal = () => {
   };
   return (
     <>
-      <h1 className="text-xl mb-4 font-semibold">
-        Inspiration for your first order
+      <h1 className="text-xl mb-4 font-semibold md:text-3xl lg:px-10 lg:pb-4">
+        Eat what makes you happy
       </h1>
       <div className="lg:hidden flex gap-3 lg:gap-0 flex-wrap justify-between">
         {categories.map((food) => (
