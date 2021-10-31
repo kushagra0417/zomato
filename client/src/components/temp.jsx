@@ -3,7 +3,7 @@ import React from 'react'
 const Temp = () => {
     return (
         <div>
-       Hello temp component     
+       Hello temp component 
         </div>
     )
 }

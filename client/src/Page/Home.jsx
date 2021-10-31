@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom';
 
 
 //components
-import Delivery from './Delivery';
-import Dining from './Dining';
-import NightLife from './NightLife';
+import Delivery from '../components/Delivery';
+import Dining from '../components/Dining';
+import NightLife from '../components/NightLife';
+import Nutrition from '../components/Nutrition';
 
 
 
-const Master = () => {
+const Home = () => {
 
     const {type}=useParams();
     return (
@@ -17,6 +18,7 @@ const Master = () => {
             {type==="delivery"&&<Delivery/>}
             {type==="dining"&&<Dining/>}
             {type==="night"&&<NightLife/>}
+            {type==="nutri"&&<Nutrition/>}
         </div>
         
         
@@ -25,4 +27,4 @@ const Master = () => {
 
 }
 
-export default Master
+export default Home
