@@ -12,10 +12,40 @@ body {
     sans-serif;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 .leaflet-container{
   width: inherit;
   height: inherit;
+  z-index: inherit;
+}
+
+@media (min-width: 1280px){
+  
+ 
+  /* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+ 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey; 
+  
+}
+
 }
 

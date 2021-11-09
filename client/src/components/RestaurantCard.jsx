@@ -1,7 +1,23 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
+import { useDispatch } from 'react-redux';
 import {GoStar} from "react-icons/go"
+import {getImage} from "../Redux/Reducer/Image/Image.action";
 
 const RestaurantCard = (props) => {
+
+  const [image,setImage]=useState({
+    images:[
+      {
+          location:"",
+      },
+  ],
+  });
+  const dispatch =useDispatch();
+  
+  useEffect(()=>{
+    props.photos && dispatch(getImage(props.photos)).then((data)=>setImage(data.payload.image))
+  }, [props.photos])
+
     return (
       <>
         <div className="bg-white p-4  w-full  mb-4 rounded-2xl md:w-1/2 lg:w-1/3 hover:shadow-lg trasition duration-700 ease-in-out">
@@ -19,7 +35,7 @@ const RestaurantCard = (props) => {
             </div>
 
             <img
-              src={props.photos.length && props.photos[0]}
+              src={image.images.length && image.images[0].location}
               alt="food"
               className="w-full h-full rounded-2xl"
             />
@@ -32,7 +48,7 @@ const RestaurantCard = (props) => {
               </span>
             </div>
             <div className="flex items-center justify-between text-gray-500">
-              <p>{props.cuisine.join(", ")}</p>
+              <p>{props.cuisines.join(", ")}</p>
               <p>₹{props.averageCost} for one</p>
             </div>
           </div>

@@ -4,7 +4,7 @@ import {TiStar} from "react-icons/ti"
 const MenuSimilarRestaurantcard = (props) => {
     return (
         <>
-            <div className="mx-2">
+            <div className="m-2 ">
             <div className=" bg-white shadow rounded-md">
            <div className="w-full h-48">
             <img src={props.image} alt="food" className="w-full h-full object-cover rounded-t-md" />   

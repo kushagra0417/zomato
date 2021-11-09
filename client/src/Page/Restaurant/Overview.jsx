@@ -3,13 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import { IoMdArrowDropright } from "react-icons/io";
 import Slider from "react-slick";
 import ReactStars from "react-rating-stars-component";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+
 
 //components
 import MenuCollection from "../../components/Restaurant/MenuCollection";
 import MenuSimilarRestaurantcard from "../../components/Restaurant/MenuSimilarRestaurantcard";
 import { NextArrow, PrevArrow } from "../../components/CarousalArrow";
-import ReviewCard from "../../components/Restaurant/Reviews/reviewCard";
+import ReviewCard from "../../components/Restaurant/Reviews/ReviewCard";
+import Mapview from "../../components/Restaurant/Mapview";
 
 const Overview = () => {
   const { id } = useParams();
@@ -18,12 +19,38 @@ const Overview = () => {
     arrows: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToShow: 2,
+    slidesToScroll: 2,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true,
+        },
+      },
+      
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
-
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
@@ -31,7 +58,7 @@ const Overview = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row relative">
-        <div className="w-full md:w-8/12">
+        <div className="w-full md:w-8/12 md:pr-8">
           <h2 className="font-semibold text-lg md:text-xl my-4">
             About this place
           </h2>
@@ -46,8 +73,7 @@ const Overview = () => {
           <div className="flex flex-wrap gap-3 my-4">
             <MenuCollection
               menuTitle="Menu"
-              pages="3"
-              image="https://b.zmtcdn.com/data/menus/043/3900043/4805d8ca03a16504635f00aebb3a1cbb.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
+              image={["https://b.zmtcdn.com/data/menus/043/3900043/4805d8ca03a16504635f00aebb3a1cbb.jpg","https://b.zmtcdn.com/data/menus/043/3900043/917aba3ea57b3ad4d7f60e5162a1ae64.jpg"]}
             />
           </div>
           <div className="my-4">
@@ -68,9 +94,13 @@ const Overview = () => {
               Exclusive of applicable taxes and charges, if any
             </small>
           </div>
-          <div className="my-4">
+          <div className="my-4 w-full md:hidden flex flex-col gap-4">
+          <Mapview title="Domino's Pizza" address="S 3/76, Ground Floor, Raj Complex, Mauza, Paharpur Mohalla, Pargana, Shivpur Ward, Orderly Bazar, Bhelupur, Varanasi" phno="+915422510201" mapLocation={[25.292672944666837, 82.99981973305584]}/>
+          </div>
+          <div className="my-4 ">
             <h4 className="text-lg font-medium">Similar Restaurants</h4>
-            <Slider {...settings}>
+           <div className="px-5 md:px-0  lg:px-0 ">
+           <Slider {...settings}>
               <MenuSimilarRestaurantcard
                 image="https://b.zmtcdn.com/data/pictures/7/19498377/e7f282604503b2523dde0bc7bd720a6f_featured_v2.jpg?output-format=webp"
                 title="Pizza Hut"
@@ -88,6 +118,7 @@ const Overview = () => {
                 title="Pizza Hut"
               />
             </Slider>
+           </div>
           </div>
 
           <div className="my-4">
@@ -101,6 +132,7 @@ const Overview = () => {
               activeColor="#ffd700"
             />
           </div>
+          
           <div className="my-4 flex flex-col gap-4">
             <ReviewCard />
             <ReviewCard />
@@ -109,32 +141,9 @@ const Overview = () => {
         </div>
         <aside
           style={{ height: "fit-content" }}
-          className="hidden md:block md:w-4/12 sticky top-2 bg-white p-3 shadow-md rounded-xl"
+          className="hidden md:flex md:w-4/12 sticky top-2 bg-white p-3 shadow-md rounded-xl flex-col gap-4  "
         >
-          <div>
-            <h4 className="text-xl font-medium">Call</h4>
-            <h5 className="text-zomato-400 font-medium">+915422510201</h5>
-          </div>
-          <div>
-            <h4 className="text-xl font-medium">Direction</h4>
-            <div className="w-full h-48">
-            <MapContainer
-              center={[25.292672944666837, 82.99981973305584]}
-              zoom={13}
-              scrollWheelZoom={false}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[25.292672944666837, 82.99981973305584]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-            </MapContainer>
-            </div>
-          </div>
+          <Mapview title="Domino's Pizza" address="S 3/76, Ground Floor, Raj Complex, Mauza, Paharpur Mohalla, Pargana, Shivpur Ward, Orderly Bazar, Bhelupur, Varanasi" phno="+915422510201" mapLocation={[25.292672944666837, 82.99981973305584]}/>
         </aside>
       </div>
     </>
