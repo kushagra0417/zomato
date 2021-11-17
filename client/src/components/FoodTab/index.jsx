@@ -13,24 +13,28 @@ const MobileTabs=()=>{
         icon:<RiShoppingBag3Line/>,
         name:"Delivery",
         isActive:false,
+        key:1,
     },
     {
         id:`dining`,
         icon:<IoFastFoodOutline/>,
         name:"Dining Out",
         isActive:false,
+        key:2,
     },
     {
         id:`night`,
         icon:<BiDrink/>,
         name:"Night Life",
         isActive:false,
+        key:3,
     },
     {
         id:`nutri`,
         icon:<IoNutritionOutline/>,
         name:"Nutrition",
         isActive:false,
+        key:4,
     },
 ])
     const {type } =useParams();
@@ -54,12 +58,12 @@ const MobileTabs=()=>{
          
         {
             allTypes.map((items)=>(
-                <Link to={`/${items.id}`}>
+                <Link to={`/${items.id}`} key={items.key}>
                
                 <div className={type===items.id?"flex relative flex-col items-center text-xl text-zomato-600  ":"flex flex-col items-center text-xl"}>
                 
                 
-                 <div className={type===items.id && "absolute w-full h-2 -top-3 border-t-2 border-zomato-400"}/>  
+                 <div className={classnames({"absolute w-full h-2 -top-3 border-t-2 border-zomato-400":type===items.id})}/>  
 
                 {items.icon}
                 
@@ -85,6 +89,7 @@ const LargeTabs=()=>{
             "https://b.zmtcdn.com/data/o2_assets/c0bb85d3a6347b2ec070a8db694588261616149578.png",
           name: "Delivery",
           activeColor: "yellow",
+          key:1,
         },
         {
           id: "dining",
@@ -95,6 +100,7 @@ const LargeTabs=()=>{
           activeColor: "blue",
     
           name: "Dining Out",
+          key:2,
         },
         {
           id: `night`,
@@ -105,6 +111,7 @@ const LargeTabs=()=>{
           activeColor: "purple",
     
           name: "Night life",
+          key:3,
         },
         {
           id: `nutri`,
@@ -115,6 +122,7 @@ const LargeTabs=()=>{
           activeColor: "yellow",
     
           name: "Nutrition",
+          key:4,
         },
       ]);
 
@@ -123,12 +131,12 @@ const {type} =useParams();
       <>
         <div className="hidden lg:flex gap-14 container px-20 xl:px-56 mx-auto my-8">
           {allTypes.map((items) => (
-            <Link to={`/${items.id}`}>
+            <Link to={`/${items.id}`} key={items.key}>
               <div
                 className={classnames(
                   "flex items-center gap-3 pb-2 transition duration-700 ease-in-out",
                   {
-                    "border-b-2 border-zomato-400": type === items.id,
+                    "border-b-2 border-zomato-400":  type === items.id,
                   }
                 )}
               >

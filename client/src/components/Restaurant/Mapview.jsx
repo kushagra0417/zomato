@@ -5,6 +5,7 @@ import { FaDirections } from "react-icons/fa";
 
 
 const Mapview = (props) => {
+  
   return (
     <>
       <div>

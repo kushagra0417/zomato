@@ -47,11 +47,11 @@ Params   _id
 Access  public 
 Method  POST
 */
-Router.post("/new/:_id",async(req,res)=>{
+Router.post("/new/create",passport.authenticate("jwt"),async(req,res)=>{
     try {
-        await ValidateId(req.params);
+        await ValidateId({_id:req.session.passport.user._doc._id.toString()});
         await ValidateOrderDetails(req.body);
-        const {_id}=req.params;
+        const {_id}=req.session.passport.user._doc;
         const {orderDetails}=req.body;
 
          const addNewOrder=await OrderModel.findOneAndUpdate({

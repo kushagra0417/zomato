@@ -2,16 +2,44 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import {FcGoogle} from "react-icons/fc"
 import {IoIosClose} from "react-icons/io"
+import { useDispatch } from 'react-redux'
 
+
+//Redux action
+import { signUp } from '../../Redux/Reducer/Auth/Auth.action'
 
 export default function SignUp({isOpen, setIsOpen}) {
+
+  const [userData,setUserData]=useState({
+    email:"",
+    password:"",
+    fullname:"",
+  })
+
+  const dispatch=useDispatch();
+
+  const handleChange=(e)=>{
+    setUserData((prev)=>({ ...prev ,[e.target.id]:e.target.value}))
+  }
+
   
 
   function closeModal() {
     setIsOpen(false)
   }
 
-  
+  const submit=()=> {
+    
+    dispatch(signUp(userData))
+     setUserData({
+      email:"",
+      password:"",
+      fullname:"",
+     })
+  }
+
+  const googlesignup= ()=>(window.location.href="http://localhost:5000/auth/google")
+
 
   return (
     <>
@@ -63,15 +91,17 @@ export default function SignUp({isOpen, setIsOpen}) {
                   </div>
                 </Dialog.Title>
                 <div className="mt-2 w-full flex flex-col gap-3">
-                  <button className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100">
+                  <button onClick={googlesignup} className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100">
                       Sign up with Google <FcGoogle/>
                   </button>
                   <form className="flex flex-col gap-3">
                   <div className=" w-full flex flex-col gap-2 ">
-                      <label htmlFor="name">Name</label>
+                      <label htmlFor="fullname">Name</label>
                       <input
                         type="text"
-                        id="name"
+                        id="fullname"
+                        onChange={handleChange}
+                        value={userData.fullname}
                         placeholder="Enter the Name"
                         className="w-full border border-gray-400 focus:outline-none focus:border-zomato-400 px-3 py-2 rounded-lg"
                       />
@@ -81,6 +111,8 @@ export default function SignUp({isOpen, setIsOpen}) {
                       <input
                         type="email"
                         id="email"
+                        onChange={handleChange}
+                        value={userData.email}
                         placeholder="email@email.com"
                         className="w-full border border-gray-400 focus:outline-none focus:border-zomato-400 px-3 py-2 rounded-lg"
                       />
@@ -90,11 +122,13 @@ export default function SignUp({isOpen, setIsOpen}) {
                       <input
                         type="password"
                         id="password"
+                        onChange={handleChange}
+                        value={userData.password}
                         placeholder="Enter the Password"
                         className="w-full border border-gray-400 focus:outline-none focus:border-zomato-400 px-3 py-2 rounded-lg"
                       />
                     </div>
-                    <div className="w-full text-center bg-zomato-400 text-white py-2 rounded-lg">
+                    <div onClick={()=>{submit(); closeModal()}} className="w-full text-center bg-zomato-400 text-white py-2 rounded-lg">
                       Sign up
                     </div>
                   </form>

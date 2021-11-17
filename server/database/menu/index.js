@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const MenuSchema = new mongoose.Schema({
 
-    menu: [{
+    menus: [{
         name: {type: String,required: true },
         items:[
             {

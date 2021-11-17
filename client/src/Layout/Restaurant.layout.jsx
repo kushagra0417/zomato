@@ -1,4 +1,6 @@
-import React from "react";
+import React ,{ useState,useEffect }from "react";
+import { useParams } from "react-router-dom";
+import {useDispatch} from "react-redux"
 import {TiStarOutline} from "react-icons/ti"
 import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri";
 import { BiBookmarkPlus } from "react-icons/bi";
@@ -11,23 +13,42 @@ import Restaurantinfo from "../components/Restaurant/Restaurantinfo";
 import TabContainer from "../components/Restaurant/Tabs";
 import CartContainer from "../components/Cart/CartContainer";
 
+// Redux actions
+import {getSpecificRestaurant} from "../Redux/Reducer/restaurant/restaurant.action"
+import {getImage} from "../Redux/Reducer/Image/Image.action"
+import { getCart } from "../Redux/Reducer/Cart/Cart.action";
+
+
 
 const RestaurantLayout = (props) => {
+  const [restaurant,setRestaurant]=useState({images:[],name:"",cuisines:"",address:""});
+
+
+  const {id}=useParams();
+  const dispatch=useDispatch()
+
+
+
+useEffect(() => {
+  dispatch(getSpecificRestaurant(id)).then((data) => {
+    setRestaurant((prev) => ({ ...prev, ...data.payload.restaurant }));
+    dispatch(getImage(data.payload.restaurant.photos)).then((data)=>setRestaurant((prev)=>({...prev,...data.payload.image})))
+  });
+  dispatch(getCart());
+}, [id,dispatch]);
+
+
+
+
   return (
     <>
       <RestaurantNavbar />
-      <div className="container mx-auto px-4 lg:px-20 xl:px-48">
+      <div className="container mx-auto px-4 lg:px-20 xl:px-48 pb-16">
         <ImageGrid
-          images={[
-            "https://b.zmtcdn.com/data/pictures/chains/3/3900043/c79db30233beafc492d72c05463b4777_featured_v2.jpg?output-format=webp",
-            "https://b.zmtcdn.com/data/pictures/chains/3/3900043/1adb116d088669540c89150836d668f9.jpg?output-format=webp&fit=around|300:273",
-            "https://b.zmtcdn.com/data/pictures/chains/3/3900043/a3f876979c7b1a123ff8d0548d774cb1.jpg?output-format=webp&fit=around|300:273",
-            "https://b.zmtcdn.com/data/pictures/chains/3/3900043/2c7d1f324e6f10021ef521b64f75af36.jpg?output-format=webp&fit=around|300:273",
-            "https://b.zmtcdn.com/data/pictures/3/3900493/f03698ac677f90ad40af3507a4d95ab9.jpg?output-format=webp&fit=around|960:500"
-          ]}
+          images={restaurant.images}
         />
-        <Restaurantinfo name="Domino's Pizza" restaurantRating="3.5" deliveryRating="3.2" cuisine="Pizza, Fast Food" address="Bhelupur, Varanasi"/>
-      <div className="my-4 flex flex-wrap gap-3">
+        <Restaurantinfo name={restaurant?.name} restaurantRating={restaurant?.rating || "3.2"} deliveryRating={restaurant?.rating || "3.2"} cuisine={restaurant?.cuisines} address={restaurant?.address}/>
+      <div className="my-4 flex flex-wrap gap-3"> 
         <InfoButtons isActive>
           <TiStarOutline/> Add Review
         </InfoButtons>

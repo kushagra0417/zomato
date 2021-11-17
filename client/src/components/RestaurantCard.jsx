@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react'
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {GoStar} from "react-icons/go"
 import {getImage} from "../Redux/Reducer/Image/Image.action";
@@ -16,11 +17,11 @@ const RestaurantCard = (props) => {
   
   useEffect(()=>{
     props.photos && dispatch(getImage(props.photos)).then((data)=>setImage(data.payload.image))
-  }, [props.photos])
+  }, [props.photos,dispatch])
 
     return (
-      <>
-        <div className="bg-white p-4  w-full  mb-4 rounded-2xl md:w-1/2 lg:w-1/3 hover:shadow-lg trasition duration-700 ease-in-out">
+      <Link to={`/restaurant/${props._id}`} className="w-full  md:w-1/2 lg:w-1/3 " >
+        <div className="bg-white p-4  w-full  mb-4 rounded-2xl  hover:shadow-lg trasition duration-700 ease-in-out">
           <div className="w-full h-56 lg:h-64 relative">
             <div className="absolute bottom-4 flex w-full items-end justify-between ">
               <div className="flex flex-col gap-2 items-start">
@@ -53,7 +54,7 @@ const RestaurantCard = (props) => {
             </div>
           </div>
         </div>
-      </>
+      </Link>
     );
 }
 

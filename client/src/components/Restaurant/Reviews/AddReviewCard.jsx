@@ -8,7 +8,9 @@ import ReviewModal from "./ReviewModal";
 const AddReviewCard = () => {
     const [isOpen, setIsOpen] = useState(false);
     const openModal = ()=>{
-        
+      if(!localStorage.zomatoUser){
+        return alert("Please Sign in to post a review")
+      }
         setIsOpen(true)
     }
     

@@ -20,7 +20,7 @@ const Home = () => {
     useEffect(()=>{
 
         dispatch(getRestaurant());
-    },[])
+    },[dispatch])
 
 
     return (

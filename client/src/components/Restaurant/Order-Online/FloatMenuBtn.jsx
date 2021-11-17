@@ -8,7 +8,7 @@ import MenuListContainer from './MenuListContainer';
 
 
 
-const FloatMenuBtn = () => {
+const FloatMenuBtn = (props) => {
 
     const [isClicked,setIsClicked]=useState(false);
 
@@ -17,10 +17,14 @@ const FloatMenuBtn = () => {
     return (
         <>
 
-          <div className="fixed bottom-2 right-2 z-30 w-8/12 flex flex-col items-end gap-3 md:hidden"> 
+          <div className="fixed bottom-16 right-2 z-30 w-8/12 flex flex-col items-end gap-3 md:hidden"> 
           {
               isClicked && (<div className=" p-3 bg-white h-48 overflow-y-scroll shadow-md">
-              <MenuListContainer/>
+              {
+              props.menu.map((item)=>(
+                <MenuListContainer {...item} key={item._id} onClickHandler={props.onClickHandler} selected={props.selected}/>
+              ))
+            }
              </div>
                )
           }

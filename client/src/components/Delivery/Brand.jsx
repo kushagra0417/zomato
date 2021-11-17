@@ -51,7 +51,7 @@ const Brand = (props) => {
         <div className="my-5 p-10">
            <Slider   {...settings}>
            {logos.map((logo) => (
-          <div className="w-38 h-38 px-3 lg:px-5 bg-white flex items-center justify-center">
+          <div className="w-38 h-38 px-3 lg:px-5 bg-white flex items-center justify-center" key={logos.indexOf(logo)}>
             <img
               src={logo}
               alt="brand"

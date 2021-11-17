@@ -1,8 +1,12 @@
-import React from "react";
+import React ,{useState}from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useSelector } from 'react-redux'
+import gravatar from "gravatar"
 
 const RestaurantNavbar = () => {
+  
+  const reduxState=useSelector((globalStore)=>globalStore.user.user)
   return (
     <>
       <nav className="p-4 flex w-full items-center  bg-white shadow-md  lg:shadow-none ">
@@ -18,10 +22,21 @@ const RestaurantNavbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="border flex items-center gap-2 border-gray-300 text-zomato-400 rounded-full p-2">
+            {/* <span className="border flex items-center gap-2 border-gray-300 text-zomato-400 rounded-full p-2">
               <FaUserAlt /> 
-            </span>
-            Kushagra
+            </span> */}
+             <div
+               
+               className="border border-gray-300 text-zomato-400 rounded-full p-2 w-12 h-12"
+             >
+               <img
+                 src={gravatar.url(reduxState?.user?.email)}
+                 alt={reduxState?.user?.email}
+                 className="w-full h-full rounded-full object-cover"
+               />
+             </div>
+         <div className="hidden md:block"> {reduxState?.user?.fullname}</div>
+          
           </div>
         </div>
       </div>
